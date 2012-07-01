@@ -32,7 +32,10 @@
     NSString *digit = [sender currentTitle];
     if([self userIsInTheMiddleOfEnteringANumber])
     {
-    [[self display] setText:[self.display.text stringByAppendingString:digit]];
+
+        [[self display] setText:[self.display.text stringByAppendingString:digit]];
+        
+        
     } else {
         self.display.text = digit;
         [self setUserIsInTheMiddleOfEnteringANumber:YES];
@@ -49,7 +52,14 @@
 
 - (IBAction)enterPressed {
    
-    [self.brain pushOperand:[self.display.text doubleValue]];
+    if([self.display.text isEqualToString:@"π"])
+    {
+        [self.brain pushOperand:3.1416];
+    }
+    else {
+        [self.brain pushOperand:[self.display.text doubleValue]];
+    }
+    
     self.userIsInTheMiddleOfEnteringANumber = NO;
                      
 
@@ -69,5 +79,14 @@
     }
     self.userIsInTheMiddleOfEnteringANumber = YES;
 }
+
+- (IBAction)piPressed {
+    if(self.userIsInTheMiddleOfEnteringANumber == NO)
+    {
+        [self.display setText:@"π"];
+        self.userIsInTheMiddleOfEnteringANumber = YES;
+    }
+}
+
 
 @end

@@ -8,6 +8,7 @@
 
 #import "CalculatorBrain.h"
 
+
 @interface CalculatorBrain()
 @property (nonatomic, strong) NSMutableArray *operandStack;
 @end
@@ -29,7 +30,9 @@
 - (double)popOperand
 {
     NSNumber *operandObject = [self.operandStack lastObject];
+    
     if(operandObject)[self.operandStack removeLastObject];
+    
     return [operandObject doubleValue];
 }
 
