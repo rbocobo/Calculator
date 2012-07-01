@@ -88,5 +88,12 @@
     }
 }
 
+- (IBAction)clearPressed {
+    self.userIsInTheMiddleOfEnteringANumber = NO;
+    [self.display setText:@"0"];
+    self.decimalPointPressed = NO;
+    
+}
+
 
 @end

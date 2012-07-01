@@ -7,7 +7,7 @@
 //
 
 #import "CalculatorBrain.h"
-
+#import <math.h>
 
 @interface CalculatorBrain()
 @property (nonatomic, strong) NSMutableArray *operandStack;
@@ -49,6 +49,17 @@
     }else if([operation isEqualToString:@"/"]) {
         double divisor = [self popOperand];
         result = [self popOperand] / divisor;
+    }else if([operation isEqualToString:@"π"]){
+        result = 3.14159265;
+    }else if([operation isEqualToString:@"sin"]){
+        result = sin([self popOperand]);
+        
+    }else if([operation isEqualToString:@"cos"]){
+        result = cos([self popOperand]);
+        
+    }else if([operation isEqualToString:@"sqrt"]){
+        result = sqrt([self popOperand]);
+        
     }
     
     
