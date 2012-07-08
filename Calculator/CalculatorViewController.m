@@ -17,6 +17,7 @@
 
 @implementation CalculatorViewController
 @synthesize display = _display;
+@synthesize keyedDisplay = _keyedDisplay;
 @synthesize userIsInTheMiddleOfEnteringANumber = _userIsInTheMiddleOfEnteringANumber;
 @synthesize brain = _brain;
 @synthesize decimalPointPressed = _decimalPointPressed;
@@ -48,9 +49,15 @@
     NSString *resultString = [NSString stringWithFormat:@"%g",result];
     self.display.text =resultString;
     self.decimalPointPressed = NO;
+    
+    self.keyedDisplay.text = [self.keyedDisplay.text stringByAppendingFormat:[sender currentTitle]];
+    self.keyedDisplay.text = [self.keyedDisplay.text stringByAppendingFormat:@" "];
    }
 
 - (IBAction)enterPressed {
+    
+    self.keyedDisplay.text = [self.keyedDisplay.text stringByAppendingFormat:self.display.text];
+    self.keyedDisplay.text = [self.keyedDisplay.text stringByAppendingFormat:@" "];
    
     if([self.display.text isEqualToString:@"π"])
     {
@@ -61,23 +68,24 @@
     }
     
     self.userIsInTheMiddleOfEnteringANumber = NO;
-                     
+    
 
 }
 
 - (IBAction)decimalPressed:(UIButton *)sender {
     if(self.decimalPointPressed == NO)
     {
-    if(self.userIsInTheMiddleOfEnteringANumber == NO)
-    {
-        [self.display setText:[self.display.text stringByAppendingFormat:@"."]];
-    }
-    else {
-        [self.display setText:[self.display.text stringByAppendingFormat:@"."]];
-    }
-    self.decimalPointPressed = YES;
+        if(self.userIsInTheMiddleOfEnteringANumber == NO)
+        {
+            [self.display setText:[self.display.text stringByAppendingFormat:@"."]];
+        }
+        else {
+            [self.display setText:[self.display.text stringByAppendingFormat:@"."]];
+        }
+        self.decimalPointPressed = YES;
     }
     self.userIsInTheMiddleOfEnteringANumber = YES;
+    
 }
 
 - (IBAction)piPressed {
@@ -92,8 +100,12 @@
     self.userIsInTheMiddleOfEnteringANumber = NO;
     [self.display setText:@"0"];
     self.decimalPointPressed = NO;
-    
+    [self.keyedDisplay setText:@""];
 }
 
 
+- (void)viewDidUnload {
+    [self setKeyedDisplay:nil];
+    [super viewDidUnload];
+}
 @end
